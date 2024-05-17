@@ -29,7 +29,7 @@ function CardAnimals() {
 
   return (
     <div className="allpage">
-      <img src={drawing} alt="" />
+      <img className="logo" src={drawing} alt="" />
       <div className="input">
         <input
           type="text"
@@ -53,50 +53,52 @@ function CardAnimals() {
                   <div className="onelement" key={animal.scientific_name}>
                     <h2>{animal.name}</h2>
                     <PhotoAnimals name={animal.name} />
-                    <p>
-                      <h3>locations :</h3>
-                      {animal.locations || "Information non disponible"}
-                    </p>
-                    <p>
-                      <h3>prey :</h3>
-                      {animal.characteristics.prey ||
-                        "Information non disponible"}
-                    </p>
-                    <p>
-                      <h3>estimated population :</h3>
-                      {animal.characteristics.estimated_population_size ||
-                        "Information non disponible"}
-                    </p>
-                    <p>
-                      <h3>gestation_period :</h3>
-                      {animal.characteristics.gestation_period ||
-                        "Information non disponible"}
-                    </p>
-                    <p>
-                      <h3>habitat :</h3>
-                      {animal.characteristics.habitat ||
-                        "Information non disponible"}
-                    </p>
-                    <p>
-                      <h3>diet :</h3>
-                      {animal.characteristics.diet ||
-                        "Information non disponible"}
-                    </p>
-                    <p>
-                      <h3>lifespan :</h3>
-                      {animal.characteristics.lifespan ||
-                        "Information non disponible"}
-                    </p>
-                    <p>
-                      <h3>weight :</h3>
-                      {animal.characteristics.weight ||
-                        "Information non disponible"}
-                    </p>
-                    <p>
-                      <h3>height :</h3>
-                      {animal.characteristics.height ||
-                        "Information non disponible"}
-                    </p>
+                    <div className="allP">
+                      <div className="p">
+                        <h3>locations :</h3>
+                        {animal.locations || "Information non disponible"}
+                      </div>
+                      <div className="p">
+                        <h3>prey :</h3>
+                        {animal.characteristics.prey ||
+                          "Information non disponible"}
+                      </div>
+                      <div className="p">
+                        <h3>estimated population :</h3>
+                        {animal.characteristics.estimated_population_size ||
+                          "Information non disponible"}
+                      </div>
+                      <div className="p">
+                        <h3>gestation_period :</h3>
+                        {animal.characteristics.gestation_period ||
+                          "Information non disponible"}
+                      </div>
+                      <div className="p">
+                        <h3>habitat :</h3>
+                        {animal.characteristics.habitat ||
+                          "Information non disponible"}
+                      </div>
+                      <div className="p">
+                        <h3>diet :</h3>
+                        {animal.characteristics.diet ||
+                          "Information non disponible"}
+                      </div>
+                      <div className="p">
+                        <h3>lifespan :</h3>
+                        {animal.characteristics.lifespan ||
+                          "Information non disponible"}
+                      </div>
+                      <div className="p">
+                        <h3>weight :</h3>
+                        {animal.characteristics.weight ||
+                          "Information non disponible"}
+                      </div>
+                      <div className="p">
+                        <h3>height :</h3>
+                        {animal.characteristics.height ||
+                          "Information non disponible"}
+                      </div>
+                    </div>
                   </div>
                 </>
               ))

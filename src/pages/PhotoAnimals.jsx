@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const PhotoAnimals = ({ name }) => {
-  const [photos, setPhotos] = useState([]);
+  const [photo, setPhoto] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    const fetchPhotos = async (pageNumber = 1) => {
+    const fetchPhoto = async () => {
       const API_KEY =
         "cBdNorf5UxFPFfC1GkSxVo1LlmQLBTfT824Y00D3S8ZWlTi2iuykKl2f";
-
-      const url = `https://api.pexels.com/v1/search?query=${name}&per_page=15&page=${pageNumber}`;
+      const url = `https://api.pexels.com/v1/search?query=${name}&per_page=1`;
 
       try {
         const response = await fetch(url, {
@@ -21,49 +18,43 @@ const PhotoAnimals = ({ name }) => {
           },
         });
         const data = await response.json();
-        setPhotos((prevPhotos) => [...prevPhotos, ...data.photos]);
-        setTotalPages(Math.ceil(data.total_results / 15));
+        if (data.photos && data.photos.length > 0) {
+          setPhoto(data.photos[0]);
+        } else {
+          console.error("No photo found for the given query.");
+        }
         setLoading(false);
-        setLoadingMore(false);
-        console.log(url);
       } catch (error) {
         console.error("Error fetching data from Pexels API:", error);
         setLoading(false);
-        setLoadingMore(false);
       }
     };
 
-    fetchPhotos(page);
-  }, [name, page]);
-
-  const handleLoadMore = () => {
-    if (page < totalPages) {
-      setLoadingMore(true);
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
+    fetchPhoto();
+  }, [name]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <div>
-      <div>
-        {photos.map((photo) => (
-          <div key={photo.id}>
-            <img src={photo.src.medium} alt={photo.photographer} />
-            <p>{photo.photographer}</p>
-          </div>
-        ))}
+  if (!photo) {
+    return (
+      <div className="error">
+        <div>photo non dispobile</div>
       </div>
-      {loadingMore ? (
-        <div>Loading more...</div>
-      ) : (
-        page < totalPages && <button onClick={handleLoadMore}>Load More</button>
-      )}
+    );
+  }
+
+  return (
+    <div className="containerPhoto">
+      <img className="photo" src={photo.src.medium} alt="" />
+      <p className="namePhotographer">{photo.photographer}</p>
     </div>
   );
+};
+
+PhotoAnimals.propTypes = {
+  name: PropTypes.string.isRequired,
 };
 
 export default PhotoAnimals;
