@@ -6,10 +6,10 @@
 
 .allpage {
   @include mq {
-    background-image: url("../assets/imgs/forest.avif");
+    background-image: url("../assets/imgs/Savane.jpeg");
     background-size: 100% 100%;
   }
-  background-image: url("../assets/imgs/forest.avif");
+  background-image: url("../assets/imgs/Savane.jpeg");
   .photo {
     @include mq {
       margin-left: 100px;
