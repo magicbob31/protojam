@@ -4,32 +4,41 @@ import drawing from "../assets/imgs/OIG2.jpg";
 import PhotoAnimals from "./PhotoAnimals";
 
 function CardAnimals() {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const url = `https://api.api-ninjas.com/v1/animals?name=${value}`;
+    const fetchAnimals = async () => {
+      const url = `https://api.api-ninjas.com/v1/animals?name=${value}`;
 
-    const options = {
-      method: "GET",
-      headers: {
-        "X-Api-Key": "PGS+gK/Y2dl38ccevJ0uQQ==DbQLckaAbOoIdM76",
-      },
+      const options = {
+        method: "GET",
+        headers: {
+          "X-Api-Key": "PGS+gK/Y2dl38ccevJ0uQQ==DbQLckaAbOoIdM76",
+        },
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        setData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erreur :", error);
+        setLoading(false);
+      }
     };
 
-    fetch(url, options)
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("Erreur :", error);
-      });
+    fetchAnimals();
   }, [value]);
 
   return (
     <div className="allpage">
-      <img className="logo" src={drawing} alt="" />
+      <div>
+        <img className="logo" src={drawing} alt="logo" />
+        <h1 className="title">Animals Discovery</h1>
+      </div>
       <div className="input">
         <input
           type="text"
@@ -37,72 +46,89 @@ function CardAnimals() {
           onChange={(event) => {
             setValue(event.target.value);
           }}
-          placeholder="     Entrez du texte ici"
+          placeholder="Entrez du texte ici"
         />
       </div>
 
       <div className="card">
-        {Array.isArray(data)
-          ? data
-              .filter((animal) =>
-                animal.name.toLowerCase().includes(value.toLowerCase())
-              )
-              .slice(0, 20)
-              .map((animal) => (
-                <>
-                  <div className="onelement" key={animal.scientific_name}>
-                    <h2>{animal.name}</h2>
-                    <PhotoAnimals name={animal.name} />
-                    <div className="allP">
-                      <div className="p">
-                        <h3>locations :</h3>
-                        {animal.locations || "Information non disponible"}
-                      </div>
-                      <div className="p">
-                        <h3>prey :</h3>
-                        {animal.characteristics.prey ||
-                          "Information non disponible"}
-                      </div>
-                      <div className="p">
-                        <h3>estimated population :</h3>
-                        {animal.characteristics.estimated_population_size ||
-                          "Information non disponible"}
-                      </div>
-                      <div className="p">
-                        <h3>gestation_period :</h3>
-                        {animal.characteristics.gestation_period ||
-                          "Information non disponible"}
-                      </div>
-                      <div className="p">
-                        <h3>habitat :</h3>
-                        {animal.characteristics.habitat ||
-                          "Information non disponible"}
-                      </div>
-                      <div className="p">
-                        <h3>diet :</h3>
-                        {animal.characteristics.diet ||
-                          "Information non disponible"}
-                      </div>
-                      <div className="p">
-                        <h3>lifespan :</h3>
-                        {animal.characteristics.lifespan ||
-                          "Information non disponible"}
-                      </div>
-                      <div className="p">
-                        <h3>weight :</h3>
-                        {animal.characteristics.weight ||
-                          "Information non disponible"}
-                      </div>
-                      <div className="p">
-                        <h3>height :</h3>
-                        {animal.characteristics.height ||
-                          "Information non disponible"}
-                      </div>
-                    </div>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          Array.isArray(data) &&
+          data
+            .filter((animal) =>
+              animal.name.toLowerCase().includes(value.toLowerCase())
+            )
+            .slice(0, 20)
+            .map((animal) => (
+              <div className="onelement" key={animal.scientific_name}>
+                <h2>{animal.name}</h2>
+                <PhotoAnimals name={animal.name} />
+                <div className="allP">
+                  <div className="p">
+                    <h3>locations :</h3>
+                    <p>{animal.locations || "Information non disponible"}</p>
                   </div>
-                </>
-              ))
-          : null}
+                  <div className="p">
+                    <h3>prey :</h3>
+                    <p>
+                      {animal.characteristics.prey ||
+                        "Information non disponible"}
+                    </p>
+                  </div>
+                  <div className="p">
+                    <h3>estimated population :</h3>
+                    <p>
+                      {animal.characteristics.estimated_population_size ||
+                        "Information non disponible"}
+                    </p>
+                  </div>
+                  <div className="p">
+                    <h3>gestation period :</h3>
+                    <p>
+                      {animal.characteristics.gestation_period ||
+                        "Information non disponible"}
+                    </p>
+                  </div>
+                  <div className="p">
+                    <h3>habitat :</h3>
+                    <p>
+                      {animal.characteristics.habitat ||
+                        "Information non disponible"}
+                    </p>
+                  </div>
+                  <div className="p">
+                    <h3>diet :</h3>
+                    <p>
+                      {animal.characteristics.diet ||
+                        "Information non disponible"}
+                    </p>
+                  </div>
+                  <div className="p">
+                    <h3>lifespan :</h3>
+                    <p>
+                      {animal.characteristics.lifespan ||
+                        "Information non disponible"}
+                    </p>
+                  </div>
+                  <div className="p">
+                    <h3>weight :</h3>
+                    <p>
+                      {animal.characteristics.weight ||
+                        "Information non disponible"}
+                    </p>
+                  </div>
+                  <div className="p">
+                    <h3>height :</h3>
+                    <p>
+                      {animal.characteristics.height ||
+                        "Information non disponible"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))
+        )}
       </div>
     </div>
   );
