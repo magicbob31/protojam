@@ -1,0 +1,86 @@
+@mixin mq($breakpoint: 768px) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+.allpage {
+  @include mq {
+    background-image: url("../assets/imgs/forest.avif");
+    background-size: 100% 100%;
+  }
+  background-image: url("../assets/imgs/forest.avif");
+  img {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: solid;
+    @include mq {
+      height: 80px;
+      width: 80px;
+      border-radius: 40px;
+      border: solid;
+    }
+  }
+  .input {
+    display: flex;
+    justify-content: center;
+
+    input {
+      @include mq {
+        width: 300px;
+        height: 30px;
+      }
+      margin: 10px;
+      border-radius: 20px;
+    }
+  }
+  .card {
+    @include mq {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 70px;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h2 {
+      margin: 10px;
+      font-size: x-large;
+      color: black;
+      text-shadow: 1px 1px 2px black, 0 0 25px rgb(241, 241, 248),
+        0 0 5px rgb(222, 222, 233);
+      display: flex;
+      justify-content: center;
+    }
+    .onelement {
+      @include mq {
+        height: 550px;
+        width: 450px;
+        padding: 20px;
+      }
+      box-shadow: 10px 10px 8px #050c05;
+      background-color: #5a8d03;
+      padding: 5px;
+      margin: 10px;
+      min-height: 380px;
+      min-width: 355px;
+      border: solid;
+      border-radius: 20px;
+      p {
+        @include mq {
+          line-height: 38px;
+        }
+        display: flex;
+        flex-direction: row;
+        margin-left: 10px;
+        line-height: 30px;
+        h3 {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
