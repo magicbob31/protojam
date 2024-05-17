@@ -12,8 +12,9 @@
   background-image: url("../assets/imgs/forest.avif");
   .photo {
     @include mq {
-      margin-left: 100px;
+      margin-left: 180px;
     }
+    border-radius: 50px;
     padding: 10px;
     margin-left: 70px;
     height: 200px;
@@ -56,7 +57,7 @@
   .onelement {
     @include mq {
       height: 700px;
-      width: 450px;
+      width: 600px;
       padding: 20px;
     }
     box-shadow: 10px 10px 8px #050c05;
@@ -77,6 +78,7 @@
         line-height: 38px;
       }
       display: flex;
+      flex-wrap: wrap;
       flex-direction: row;
       margin-left: 10px;
       line-height: 30px;
